@@ -24,12 +24,27 @@ export class ProductService {
     //IF CATEGORY ID IS ADDED THEN SHOW PRODUCTS IN THE GIVEN CATEGORY
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
 
+    return this.getProducts(searchUrl);
+  }
+
+  searchProducts(keyword: String): Observable<Product[]> {
+    //IF KEYWORD IS ADDED THEN SHOW PRODUCTS CONTAINING THE GIVEN KEYWORD
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
+
+    return this.getProducts(searchUrl);
+  }
+
+  private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient.get<GetResponse>(searchUrl).pipe(map(response => response.content));
   }
+
+
 
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient.get<ProductCategory[]>(this.categoryUrl).pipe(map(response => response));
   }
+
+
 }
 
 interface GetResponse {
