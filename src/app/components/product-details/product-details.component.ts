@@ -10,7 +10,7 @@ import { ActivatedRoute, Route } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit{
 
-  product!:Product;
+  product:Product=new Product(1,"","",0);
 
   constructor(private productService:ProductService, private route:ActivatedRoute){
 
@@ -26,8 +26,6 @@ export class ProductDetailsComponent implements OnInit{
 
     this.productService.getProduct(productId).subscribe(
       data=>{
-        
-      console.log(JSON.stringify(data))
       this.product=data;
       }
     )

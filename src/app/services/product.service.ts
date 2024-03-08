@@ -14,10 +14,24 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getProductListPagination(thePageNumber: number, thePageSize: number, categoryId: number): Observable<GetResponse> {
+
+    if (categoryId == -1) {
+      const searchUrl = `${this.baseUrl}?page=${thePageNumber}&size=${thePageSize}`;
+      
+      return this.httpClient.get<GetResponse>(searchUrl);
+
+    } else {
+      const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${thePageNumber}&size=${thePageSize}`;
+
+      return this.httpClient.get<GetResponse>(searchUrl);
+    }
+  }
+
   getProductList(categoryId: number): Observable<Product[]> {
 
-    //If CATEGORY ID IS ZERO THEN SHOW ALL PRODUCTS
-    if (categoryId == 0) {
+    //If CATEGORY ID IS -1 THEN SHOW ALL PRODUCTS
+    if (categoryId == -1) {
       return this.httpClient.get<Product[]>(this.baseUrl).pipe(map(response => response));
     }
 
@@ -27,12 +41,20 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
-  searchProducts(keyword: String): Observable<Product[]> {
+  searchProducts(keyword: String): Observable<GetResponse> {
     //IF KEYWORD IS ADDED THEN SHOW PRODUCTS CONTAINING THE GIVEN KEYWORD
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
 
-    return this.getProducts(searchUrl);
+    return this.httpClient.get<GetResponse>(searchUrl);
   }
+
+  searchListPagination(thePageNumber: number, thePageSize: number, keyword: string): Observable<GetResponse> {
+
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${thePageNumber}&size=${thePageSize}`;
+
+    return this.httpClient.get<GetResponse>(searchUrl);
+  }
+
 
   private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient.get<GetResponse>(searchUrl).pipe(map(response => response.content));
@@ -53,7 +75,13 @@ export class ProductService {
 }
 
 interface GetResponse {
-  content: Product[];
+  content: Product[],
+  pageable: {
+    pageNumber: number,
+    pageSize: number,
+    totalPages: number,
+  }
+  totalElements: number;
 }
 
 
