@@ -47,7 +47,7 @@
 
                                 </div>
 
-
+                                <button (click)="remove(tempCartItem)" class="btn btn-primary btn-sm mt-2">Supprimer</button>
                                 <p class="mt-2">Subtotal : {{ tempCartItem.quantity * tempCartItem.unitPrice | currency:
                                     'EUR'}}
                                 </p>
