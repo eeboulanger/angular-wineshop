@@ -12,7 +12,7 @@
                         </a>
 
                         <div class="price">{{tempProduct.price|currency:'EUR'}}</div>
-                        <a href="#" class="primary-btn">Ajouter au panier</a>
+                        <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Ajouter au panier</button>
                     </div>
 
                 </div>
