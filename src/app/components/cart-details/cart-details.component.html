@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="section-content section-content-30">
+        <div class="container-fluid">
+
+            <div *ngIf="cartItems.length >0">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="20%">Product Img</th>
+                        <th width="50%">Product Detail</th>
+                        <th width="30%"></th>
+                    </tr>
+
+                    <tr *ngFor="let tempCartItem of cartItems">
+                        <td>
+                            <img src="assets/images/placeholder.png" class="img-responsive" width="150px">
+                        </td>
+                        <td>
+                            <p>{{tempCartItem.name}}</p>
+                            <p>{{tempCartItem.unitPrice | currency: 'EUR'}}</p>
+                        </td>
+                        <td>
+                            <div class="items">
+                                <label>Quantité : </label> {{tempCartItem.quantity}}
+                            </div>
+
+                            <p class="mt-2">Subtotal : {{ tempCartItem.quantity * tempCartItem.unitPrice | currency:
+                                'EUR'}}
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"></td>
+                        <td style="font-weight: bold">
+                            <p>Quantité total : {{totalQuantity}}</p>
+                            <p>Frais de port : OFFERT</p>
+                            <p>Prix total : {{totalPrice | currency: 'EUR'}}</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!-- if cart is empty, show this message-->
+            <div *ngIf="cartItems.length==0" class="alert alert-warning  col-md-12" role="alert">
+                Votre panier est vide.
+            </div>
+        </div>
+    </div>
+</div>
