@@ -47,15 +47,11 @@ export class ProductListComponent implements OnInit {
   handleSearchProducts() {
     const keyword = this.route.snapshot.paramMap.get("keyword")!;
 
-    console.log(`keyword=${keyword}, thePageNumber=${this.thePageNumber}`);
-
     if (this.previousSearchKeyword != keyword) {
       this.thePageNumber = 1;
     }
 
     this.previousSearchKeyword = keyword;
-
-
 
     this.productService.searchListPagination(this.thePageNumber - 1,
       this.thePageSize,
@@ -108,10 +104,8 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product:Product){
-    console.log("adding to cart "+ product.name);
-
+   
     const cartItem: CartItem=new CartItem(product);
-
     this.cartService.addToCart(cartItem);
   }
 }

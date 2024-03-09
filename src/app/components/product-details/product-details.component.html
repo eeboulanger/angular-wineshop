@@ -3,7 +3,7 @@
     <img src="assets/images/placeholder.png" class="detail-img">
     <h3>{{product.name}}</h3>
     <div class="price">{{product.price | currency: "EUR"}}</div>  
-    <a href="#" class="primary-btn">Ajouter au panier</a>
+    <button (click)="addToCart()" class="btn btn-primary btn-sm">Ajouter au panier</button>
     <hr>
     <h4>Description</h4>
     <p>Product description</p>

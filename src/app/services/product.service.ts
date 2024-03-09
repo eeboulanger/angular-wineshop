@@ -28,6 +28,7 @@ export class ProductService {
     }
   }
 
+  //NOT IN USE
   getProductList(categoryId: number): Observable<Product[]> {
 
     //If CATEGORY ID IS -1 THEN SHOW ALL PRODUCTS
@@ -41,6 +42,7 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  //REPLACED WITH SEARCHLISTPAGINATION
   searchProducts(keyword: String): Observable<GetResponse> {
     //IF KEYWORD IS ADDED THEN SHOW PRODUCTS CONTAINING THE GIVEN KEYWORD
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
