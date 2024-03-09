@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../common/product';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from '../../common/cart-item';
+import { CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -16,12 +18,12 @@ export class ProductListComponent implements OnInit {
   searchMode: boolean = false;
 
   thePageNumber: number = 1;
-  thePageSize: number = 10;
+  thePageSize: number = 4;
   theTotalElements: number = 0;
 
   previousSearchKeyword = "";
 
-  constructor(private productService: ProductService,
+  constructor(private productService: ProductService, private cartService: CartService,
     private route: ActivatedRoute) {
   }
 
@@ -107,5 +109,9 @@ export class ProductListComponent implements OnInit {
 
   addToCart(product:Product){
     console.log("adding to cart "+ product.name);
+
+    const cartItem: CartItem=new CartItem(product);
+
+    this.cartService.addToCart(cartItem);
   }
 }
